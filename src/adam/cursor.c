@@ -1,0 +1,26 @@
+/**
+ * Cursor routines
+ */
+
+#include <msx.h>
+#include "cursor.h"
+#include "../cursor.h"
+
+void cursor(bool t)
+{
+  vdp_vfill(0x3806,t == true ? 0xFF : 0x00, 2);
+  vdp_vfill(0x1b00,0x00,4);
+  vdp_vpoke(0x1b03,4);
+}
+
+void cursor_pos(unsigned char x, unsigned char y)
+{
+  vdp_vpoke(0x1b00,(y<<3));
+  vdp_vpoke(0x1b01,(x<<3));
+}
+
+void cursor_update(unsigned char x, unsigned char y)
+{
+    cursor(true);
+    cursor_pos(x,y);
+}
